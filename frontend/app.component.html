@@ -1,0 +1,45 @@
+<mat-toolbar color="primary">
+  <span>INFO5059 - {{ sessionStorage.getItem("title") }}</span>
+  <span style="flex: 1 1 auto"></span>
+  <button mat-button [matMenuTriggerFor]="appMenu" align="end">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-menu #appMenu="matMenu">
+  <a
+    mat-menu-item
+    [routerLink]="['home']"
+    [state]="{ title: 'home' }"
+    (click)="setTitle()"
+    >home</a
+  >
+  <a
+    mat-menu-item
+    [routerLink]="['vendors']"
+    [state]="{ title: 'vendors' }"
+    (click)="setTitle()"
+    >vendors</a
+  >
+  <a
+    mat-menu-item
+    [routerLink]="['products']"
+    [state]="{ title: 'products' }"
+    (click)="setTitle()"
+    >products</a
+  >
+  <a
+    mat-menu-item
+    [routerLink]="['generator']"
+    [state]="{ title: 'generator' }"
+    (click)="setTitle()"
+    >generator</a
+  >
+  <a
+    mat-menu-item
+    [routerLink]="['viewer']"
+    [state]="{ title: 'viewer' }"
+    (click)="setTitle()"
+    >viewer</a
+  >
+</mat-menu>
+<router-outlet></router-outlet>
