@@ -1,0 +1,78 @@
+<mat-card *ngIf="hideEditForm" style="margin-bottom: 1vh">
+  <mat-card-header style="display: flex; justify-content: center">
+    <div style="text-align: center">
+      <img class="logo-image" src="assets/images/sflogo3.png" />
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="table-div">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z8"
+        matSort
+      >
+        <!-- Product Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            <div class="center-header">Product No.</div>
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            <div class="center-header">Name</div>
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+        <!-- Vendor Id Column -->
+        <ng-container matColumnDef="vendorid">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            <div class="center-header">Vendor</div>
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.vendorid }}</td>
+        </ng-container>
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="select(row)"
+        ></tr>
+      </table>
+    </div>
+    <div class="padtop15">
+      <mat-icon
+        (click)="newProduct()"
+        matTooltip="Add New Product"
+        class="addicon"
+        color="primary"
+      >
+        control_point
+      </mat-icon>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-card *ngIf="!hideEditForm">
+  <mat-card-content>
+    <app-product-detail
+      [selectedProduct]="selectedProduct"
+      [vendors]="vendors$ | async"
+      [products]="products$ | async"
+      (cancelled)="cancel('cancelled')"
+      (saved)="save($event)"
+      (deleted)="delete($event)"
+    >
+    </app-product-detail>
+  </mat-card-content>
+</mat-card>
+<mat-paginator [length]="size" [pageSize]="5"></mat-paginator>
+<div
+  class="my-primary-text main-div"
+  style="text-align: right; font-size: 20px; font-weight: bold; margin: 2px"
+>
+  {{ msg }}
+</div>
